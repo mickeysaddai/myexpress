@@ -12,4 +12,17 @@ app.get('/', (req, res) => {
 
 })  //app takes 3 parameters:requst, response and next although next is usually not used
 
+
+// app.get('/users', (req, res) => {  //instead of defining all routes here which could lead to a huge file, we rather defin eit sepately under routes
+//     res.send('User List')
+    
+// })
+// app.get('/users/new', (req, res) => {
+//     res.send("User New Form")
+
+// })
+
+const userRouter = require('./routes/users');
+app.use('/users', userRouter)
+
 app.listen(3000) //our server is listening on prot 3000 for a bunch of different requests
