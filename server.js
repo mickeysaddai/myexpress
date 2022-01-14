@@ -2,10 +2,13 @@ const express = require('express');   //require express library we donwloaded
 const app = express(); //set up actual server  by calling express() we create an applicaton
 
 
-app.set('view engine', 'ejs')
-app.use(logger)
+app.use(express.static("public"))
+app.use(express.urlencoded({extended: true})) //allows us to access infromation coming from forms
 
-app.get('/', logger, (req, res) => {
+app.set('view engine', 'ejs')
+// app.use(logger)
+
+app.get('/', (req, res) => {
     console.log("Here")
     res.render("index", {text: "!!!"} )
     // res.download('server.js')

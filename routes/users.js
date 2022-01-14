@@ -4,16 +4,29 @@ const router =  express.Router() //router works exactly as our app. It has funct
 //since we are in the users.js folder, we dont have to user /users or /users/new, it automatically puts users there for us
 
 router.get('/', (req, res) => {
+    console.log(req.query.name)
     res.send('User List')
     
 })
 router.get('/new', (req, res) => { //if this were to be put under the get with params, it will define id as new
-    res.send("User New Form")
+    // res.send("User New Form")
+    res.render("users/new", {firstName: "Bernard"})
 
 })
 
 router.post('/', (req, res) => {
-    res.send('Create User')
+    // res.send('Create User')
+    const isValid = true;
+
+    if (isValid){
+        users.push({firstName: req.body.firstName})
+        res.redirect(`/users/${users.length - 1}`)
+    } else  {
+        console.log("Error")
+        res.render("users/new", {firstName: req.body.firstName})
+    }
+
+    console.log(req.body.firstName)
 })
 
 
@@ -42,7 +55,7 @@ router
     .route('/:id')
     .get((req, res) => {
         console.log(req.user)
-        // res.send(`Get User with ID ${req.params.id}`)
+        res.send(`Get User with ID ${req.params.id}`)
         res.send(req.user.name)
     })
     .put((req, res)=> {
