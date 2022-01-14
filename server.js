@@ -3,8 +3,9 @@ const app = express(); //set up actual server  by calling express() we create an
 
 
 app.set('view engine', 'ejs')
+app.use(logger)
 
-app.get('/', (req, res) => {
+app.get('/', logger, (req, res) => {
     console.log("Here")
     res.render("index", {text: "!!!"} )
     // res.download('server.js')
@@ -25,4 +26,8 @@ app.get('/', (req, res) => {
 const userRouter = require('./routes/users');
 app.use('/users', userRouter)
 
+
+function logger(req, res, next){
+    console.log(req.originalUrl)
+}
 app.listen(3000) //our server is listening on prot 3000 for a bunch of different requests
