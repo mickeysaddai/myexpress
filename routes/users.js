@@ -7,7 +7,7 @@ let users = [{name: "Mickey"}, {name: "Ben"}, {name: "Tim"}]
 
 router.get('/', (req, res) => {
     console.log(req.query.name)
-    res.send('User List')
+    res.send(users)
     
 })
 
@@ -63,6 +63,21 @@ router
         res.send(req.user.name)
     })
     .put((req, res)=> {
+        // res.send(req.body)
+        let newobject = {id: req.params.id, firstName: req.body.name }
+
+
+         for (let i = 0; i < users.length; i++){
+
+            if (req.params.id === i.toString()){
+                users[i] = newobject
+            }
+
+        }
+
+        res.send(users[req.params.id])
+
+
         res.send(`Update User with ID ${req.params.id}`)
 
     })

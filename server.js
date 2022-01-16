@@ -1,9 +1,12 @@
 const express = require('express');   //require express library we donwloaded
 const app = express(); //set up actual server  by calling express() we create an applicaton
+const bodyParser = require('body-parser');
 
 
 app.use(express.static("public"))
 app.use(express.urlencoded({extended: true})) //allows us to access infromation coming from forms
+app.use(bodyParser.json({ limit: '50mb' }));
+
 
 app.set('view engine', 'ejs')
 // app.use(logger)
