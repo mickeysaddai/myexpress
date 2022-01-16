@@ -3,11 +3,15 @@ const router =  express.Router() //router works exactly as our app. It has funct
 
 //since we are in the users.js folder, we dont have to user /users or /users/new, it automatically puts users there for us
 
+let users = [{name: "Mickey"}, {name: "Ben"}, {name: "Tim"}]
+
 router.get('/', (req, res) => {
     console.log(req.query.name)
     res.send('User List')
     
 })
+
+
 router.get('/new', (req, res) => { //if this were to be put under the get with params, it will define id as new
     // res.send("User New Form")
     res.render("users/new", {firstName: "Bernard"})
@@ -63,12 +67,27 @@ router
 
     })
     .delete((req, res) => {
-        res.send(`Delete User with ID ${req.params.id}`)
+        // res.send(`Delete User with ID ${req.params.id}`)
+
+        let newUsers = [];
+
+        for (let i = 0; i < users.length; i++){
+            console.log(req.params.id=== i.toString() , req.params.id, i)
+
+            if (req.params.id !== i.toString()){
+                newUsers.push(users[i])
+            }
+
+        }
+
+        users = newUsers
+
+       return res.send(users)
 
     })
 
 
-const users = [{name: "Mickey"}, {name: "Ben"}]
+
 
 
 router.param("id", (req, res, next, id) => {//runs anytime it finds a pramm that matches the name you poass in.Parmm here acts as a middleware-stuff that runs between the req being sent ot the server and the response that is return to the user.
